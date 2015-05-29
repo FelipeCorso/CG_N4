@@ -6,6 +6,7 @@ public class Esfera {
 
 	public void desenha() {
 
+		cabo.desenha(x, y, z);
 	}
 
 }
