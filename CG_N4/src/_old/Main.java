@@ -1,3 +1,4 @@
+package _old;
 /// \file Exemplo_N2_Jogl_Eclipse.java
 /// \brief Exemplo_N2_Jogl_Eclipse: desenha uma linha na diagonal.
 /// \version $Revision: 1.0 $
