@@ -31,7 +31,7 @@ public class Mundo implements GLEventListener, KeyListener {
 		gl.glEnable(GL.GL_DEPTH_TEST);
 		gl.glEnable(GL.GL_CULL_FACE);
 
-		pendulo = new Pendulo();
+		pendulo = new Pendulo(gl);
 
 	}
 
@@ -43,6 +43,14 @@ public class Mundo implements GLEventListener, KeyListener {
 		glu.gluOrtho2D(ortho2D_minX, ortho2D_maxX, ortho2D_minY, ortho2D_maxY);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
+
+		desenharPendulo();
+
+		gl.glFlush();
+	}
+
+	private void desenharPendulo() {
+		pendulo.desenha();
 	}
 
 	@Override
