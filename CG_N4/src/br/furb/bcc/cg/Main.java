@@ -11,7 +11,7 @@ public class Main extends JFrame {
 
 	private static final long serialVersionUID = 1851620023081166356L;
 
-	private int janelaLargura = 400, janelaAltura = 400;
+	private int janelaLargura = 800, janelaAltura = 800;
 
 	public Main() {
 		super("CG-N4");
