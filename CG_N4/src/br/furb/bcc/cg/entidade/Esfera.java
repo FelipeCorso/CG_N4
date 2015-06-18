@@ -38,7 +38,7 @@ public class Esfera extends ObjetoGrafico {
 
 		// TODO 4f = altura do suporte
 		cabo1.desenha(tX, 4f, tY, tZ, 0);
-		cabo2.desenha(tX, 4f, tY * -1f, tZ * -1f, 0);
+		cabo2.desenha(tX, 4f, tY, tZ * -1f, 0);
 	}
 
 	public void desenha() {
