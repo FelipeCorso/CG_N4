@@ -23,6 +23,9 @@ public class Mundo extends Perifericos implements GLEventListener {
 	private GLAutoDrawable glDrawable;
 	private Pendulo pendulo;
 
+	private int antigoX;
+	private int antigoY;
+
 	@Override
 	public void init(GLAutoDrawable drawable) {
 		glDrawable = drawable;
@@ -162,10 +165,22 @@ public class Mundo extends Perifericos implements GLEventListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		int movtoX = e.getX() - antigoX;
+		int movtoY = e.getY() - antigoY;
+
+		// centroCirculoInterno.setX(centroCirculoInterno.getX() + movtoX);
+		// centroCirculoInterno.setY(centroCirculoInterno.getY() - movtoY);
+
+		antigoX = e.getX();
+		antigoY = e.getY();
+
+		glDrawable.display(); // redesenhar ...
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		antigoX = e.getX();
+		antigoY = e.getY();
 	}
 
 	@Override
