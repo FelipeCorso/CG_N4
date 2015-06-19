@@ -10,6 +10,7 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
 import br.furb.bcc.cg.entidade.Pendulo;
+import br.furb.bcc.cg.perifericos.Perifericos;
 
 import com.sun.opengl.util.GLUT;
 

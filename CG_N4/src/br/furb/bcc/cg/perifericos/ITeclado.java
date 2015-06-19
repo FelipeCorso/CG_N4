@@ -1,4 +1,4 @@
-package br.furb.bcc.cg;
+package br.furb.bcc.cg.perifericos;
 
 import java.awt.event.KeyListener;
 
