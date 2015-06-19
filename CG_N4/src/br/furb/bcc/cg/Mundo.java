@@ -1,7 +1,7 @@
 package br.furb.bcc.cg;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 
 import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
@@ -13,7 +13,7 @@ import br.furb.bcc.cg.entidade.Pendulo;
 
 import com.sun.opengl.util.GLUT;
 
-public class Mundo implements GLEventListener, KeyListener {
+public class Mundo extends Perifericos implements GLEventListener {
 
 	private float ortho2D_minX = -400.0f, ortho2D_maxX = 400.0f, ortho2D_minY = -400.0f, ortho2D_maxY = 400.0f;
 	private GL gl;
@@ -117,7 +117,6 @@ public class Mundo implements GLEventListener, KeyListener {
 		// gl.glFrustum (-5.0, 5.0, -5.0, 5.0, 10, 100); // projecao Perpectiva 1 pto fuga 3D
 		// gl.glOrtho(-30.0f, 30.0f, -30.0f, 30.0f, -30.0f, 30.0f); // projecao Ortogonal 3D
 
-		Debug();
 	}
 
 	@Override
@@ -161,18 +160,15 @@ public class Mundo implements GLEventListener, KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void mouseDragged(MouseEvent e) {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void mousePressed(MouseEvent e) {
 	}
 
-	public void Debug() {
-	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+	};
 
 }
