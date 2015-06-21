@@ -56,18 +56,19 @@ public class Pendulo {
 	private static final float zSuporteLat = 1f;
 
 	public void desenha() {
-		float compSuporteSup = Pendulo.RAIO * 4 * (qtdEsferas + 1);
+		float compSuporteSup = Pendulo.RAIO * 4 * (qtdEsferas + 2);
 
-		superior1.desenha(compSuporteSup, ySuporteSup, zSuporteSup, 0.5f, 4f, deltaSuporte);
-		superior2.desenha(compSuporteSup, ySuporteSup, zSuporteSup, 0.5f, 4f, deltaSuporteInvertido);
-		lateral1.desenha(xSuportelat, alturaSuporte, zSuporteLat, 0.5f, 0f, deltaSuporte);
-		lateral2.desenha(xSuportelat, alturaSuporte, zSuporteLat, 0.5f, 0f, deltaSuporteInvertido);
-		lateral3.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup - RAIO, 0f, deltaSuporte);
-		lateral4.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup - RAIO, 0f, deltaSuporteInvertido);
-		inferior.desenha(compSuporteSup, 0.5f, (float) (deltaSuporte * 2), 0.5f, alturaSuporte * -1, 0f);
-
-		for (int i = 1; i <= qtdEsferas; i++) {
-			esferas.get(i - 1).desenha(2 * RAIO, 2 * RAIO, 2 * RAIO, (4 * RAIO) * i, -2f, deltaSuporte);
+		superior1.desenha(compSuporteSup, ySuporteSup, zSuporteSup, 0, alturaSuporte / 2, deltaSuporte);
+		superior2.desenha(compSuporteSup, ySuporteSup, zSuporteSup, 0, alturaSuporte / 2, deltaSuporteInvertido);
+		lateral1.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup / -2, 0f, deltaSuporte);
+		lateral2.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup / -2, 0f, deltaSuporteInvertido);
+		lateral3.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup / 2, 0f, deltaSuporte);
+		lateral4.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup / 2, 0f, deltaSuporteInvertido);
+		inferior.desenha(compSuporteSup, 1f, (float) (deltaSuporte * 2), 0, alturaSuporte / -2, 0f);
+		int c = 0;
+		for (int i = qtdEsferas / 2 * -1; i <= qtdEsferas / 2; i++) {
+			esferas.get(c).desenha(RAIO * 2, RAIO * 2, RAIO * 2, (RAIO * i) * 4f, -1, deltaSuporte);
+			c++;
 		}
 	}
 }

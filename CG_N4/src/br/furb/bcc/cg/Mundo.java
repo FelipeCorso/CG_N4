@@ -9,6 +9,7 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
+import br.furb.bcc.cg.entidade.EstadoPendulo;
 import br.furb.bcc.cg.entidade.Pendulo;
 import br.furb.bcc.cg.perifericos.Perifericos;
 
@@ -16,7 +17,6 @@ import com.sun.opengl.util.GLUT;
 
 public class Mundo extends Perifericos implements GLEventListener {
 
-	private float ortho2D_minX = -400.0f, ortho2D_maxX = 400.0f, ortho2D_minY = -400.0f, ortho2D_maxY = 400.0f;
 	private GL gl;
 	private GLU glu;
 	private GLUT glut;
@@ -25,6 +25,8 @@ public class Mundo extends Perifericos implements GLEventListener {
 
 	private int antigoX;
 	private int antigoY;
+
+	public static EstadoPendulo estadoPendulo = EstadoPendulo.PARADO;
 
 	@Override
 	public void init(GLAutoDrawable drawable) {
@@ -35,9 +37,9 @@ public class Mundo extends Perifericos implements GLEventListener {
 		glDrawable.setGL(new DebugGL(gl));
 
 		gl.glClearColor(1f, 1f, 1f, 1.0f);
-		xEye = 20.0f;
-		yEye = 20.0f;
-		zEye = 20.0f;
+		xEye = 0.0f;
+		yEye = 10.0f;
+		zEye = 30.0f;
 		xCenter = 0.0f;
 		yCenter = 0.0f;
 		zCenter = 0.0f;
@@ -69,7 +71,6 @@ public class Mundo extends Perifericos implements GLEventListener {
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		// glu.gluOrtho2D(0, 800, 800, 0);
 		glu.gluLookAt(xEye, yEye, zEye, xCenter, yCenter, zCenter, 0.0f, 1.0f, 0.0f);
 
 		// drawAxis();
@@ -125,6 +126,10 @@ public class Mundo extends Perifericos implements GLEventListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
+		if (estadoPendulo == EstadoPendulo.MOVIMENTO) {
+			return;// Apenas deixa mudar os valores da visão da camera após iniciar o movimento do pêndulo
+		}
+
 		if ((arg0.getKeyCode() == KeyEvent.VK_R) && ((arg0.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 			glDrawable.display();
 		}
