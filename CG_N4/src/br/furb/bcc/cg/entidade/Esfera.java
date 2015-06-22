@@ -12,12 +12,10 @@ public class Esfera extends ObjetoGrafico {
 	private Esfera direita = null;
 	private Esfera esquerda = null;
 	private GLUT glut;
-	private int i;
 
 	public Esfera(GL gl, GLUT glut, int i) {
 		this.gl = gl;
 		this.glut = glut;
-		this.i = i;
 		cabo1 = new Cabo(gl);
 		cabo2 = new Cabo(gl);
 	}
@@ -26,19 +24,19 @@ public class Esfera extends ObjetoGrafico {
 
 	public void desenha(float sX, float sY, float sZ, float tX, float tY, float tZ) {
 		gl.glMaterialfv(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE, corRed, 0);
-		gl.glEnable(GL.GL_LIGHTING);// TODO: aqui?
+		gl.glEnable(GL.GL_LIGHTING);
 
 		gl.glPushMatrix();
 		{
 			gl.glScalef(sX, sY, sZ);
-			gl.glTranslated(tX, tY, 0);// Deixa esfera no centro, utiliza tz par aos cabos
+			gl.glTranslated(tX, tY, 0);// Deixa esfera no centro, utiliza tz para os cabos
 			glut.glutSolidSphere(1f, 25, 25);
 		}
 		gl.glPopMatrix();
 
-		// TODO 4f = altura do suporte
-		cabo1.desenha(tX, 4f, tY, tZ, 0);
-		cabo2.desenha(tX, 4f, tY, tZ * -1f, 0);
+		// TODO 5f = altura do suporte
+		cabo1.desenha(tX, 5f, tY, tZ, 0);
+		cabo2.desenha(tX, 5f, tY, tZ * -1f, 0);
 	}
 
 	public void desenha() {

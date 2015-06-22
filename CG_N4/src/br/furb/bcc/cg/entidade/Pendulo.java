@@ -55,16 +55,19 @@ public class Pendulo {
 	private static final float xSuportelat = 1f;
 	private static final float zSuporteLat = 1f;
 
+	private float corGray[] = { 0.7f, 0.7f, 0.7f, 0f };
+	private float corBlack[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
 	public void desenha() {
 		float compSuporteSup = Pendulo.RAIO * 4 * (qtdEsferas + 2);
 
-		superior1.desenha(compSuporteSup, ySuporteSup, zSuporteSup, 0, alturaSuporte / 2, deltaSuporte);
-		superior2.desenha(compSuporteSup, ySuporteSup, zSuporteSup, 0, alturaSuporte / 2, deltaSuporteInvertido);
-		lateral1.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup / -2, 0f, deltaSuporte);
-		lateral2.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup / -2, 0f, deltaSuporteInvertido);
-		lateral3.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup / 2, 0f, deltaSuporte);
-		lateral4.desenha(xSuportelat, alturaSuporte, zSuporteLat, compSuporteSup / 2, 0f, deltaSuporteInvertido);
-		inferior.desenha(compSuporteSup, 1f, (float) (deltaSuporte * 2), 0, alturaSuporte / -2, 0f);
+		superior1.desenha(compSuporteSup, ySuporteSup, zSuporteSup, 0, alturaSuporte / 2, deltaSuporte, corGray);
+		superior2.desenha(compSuporteSup, ySuporteSup, zSuporteSup, 0, alturaSuporte / 2, deltaSuporteInvertido, corGray);
+		lateral1.desenha(xSuportelat, alturaSuporte, zSuporteLat, (compSuporteSup / -2) + 0.5f, 0f, deltaSuporte, corGray);
+		lateral2.desenha(xSuportelat, alturaSuporte, zSuporteLat, (compSuporteSup / -2) + 0.5f, 0f, deltaSuporteInvertido, corGray);
+		lateral3.desenha(xSuportelat, alturaSuporte, zSuporteLat, (compSuporteSup / 2) - 0.5f, 0f, deltaSuporte, corGray);
+		lateral4.desenha(xSuportelat, alturaSuporte, zSuporteLat, (compSuporteSup / 2) - 0.5f, 0f, deltaSuporteInvertido, corGray);
+		inferior.desenha(compSuporteSup, 1.0f, (float) (deltaSuporte * 2) + 1f, 0, (alturaSuporte / -2) + 0.5f, 0f, corBlack);
 		int c = 0;
 		for (int i = qtdEsferas / 2 * -1; i <= qtdEsferas / 2; i++) {
 			esferas.get(c).desenha(RAIO * 2, RAIO * 2, RAIO * 2, (RAIO * i) * 4f, -1, deltaSuporte);

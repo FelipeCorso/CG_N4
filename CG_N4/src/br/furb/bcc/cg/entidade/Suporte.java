@@ -14,11 +14,9 @@ public class Suporte extends ObjetoGrafico {
 		this.glut = glut;
 	}
 
-	private float corGreen[] = { 0.0f, 1.0f, 0.0f, 1.0f };
-
-	public void desenha(float sX, float sY, float sZ, float tX, float tY, float tZ) {
-		gl.glMaterialfv(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE, corGreen, 0);
-		gl.glEnable(GL.GL_LIGHTING);// TODO: aqui?
+	public void desenha(float sX, float sY, float sZ, float tX, float tY, float tZ, float[] color) {
+		gl.glMaterialfv(GL.GL_FRONT, GL.GL_AMBIENT, color, 0);
+		gl.glEnable(GL.GL_LIGHTING);
 
 		gl.glPushMatrix();
 		{

@@ -37,14 +37,9 @@ public class Mundo extends Perifericos implements GLEventListener {
 		glDrawable.setGL(new DebugGL(gl));
 
 		gl.glClearColor(1f, 1f, 1f, 1.0f);
-		xEye = 0.0f;
-		yEye = 10.0f;
-		zEye = 30.0f;
-		xCenter = 0.0f;
-		yCenter = 0.0f;
-		zCenter = 0.0f;
 
-		ligarLuz();
+		resetarCamera();
+		ligarLuz(true);
 
 		gl.glEnable(GL.GL_DEPTH_TEST);
 		gl.glEnable(GL.GL_CULL_FACE);
@@ -53,10 +48,23 @@ public class Mundo extends Perifericos implements GLEventListener {
 
 	}
 
-	private void ligarLuz() {
+	private void resetarCamera() {
+		xEye = 0.0f;
+		yEye = 10.0f;
+		zEye = 30.0f;
+		xCenter = 0.0f;
+		yCenter = 0.0f;
+		zCenter = 0.0f;
+	}
+
+	private void ligarLuz(boolean luz) {
 		float posLight[] = { 5.0f, 5.0f, 10.0f, 0.0f };
 		gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, posLight, 0);
-		gl.glEnable(GL.GL_LIGHT0);
+		if (luz) {
+			gl.glEnable(GL.GL_LIGHT0);
+		} else {
+			gl.glDisable(GL.GL_LIGHT0);
+		}
 	}
 
 	private double xEye, yEye, zEye;
@@ -135,38 +143,40 @@ public class Mundo extends Perifericos implements GLEventListener {
 		}
 		switch (arg0.getKeyCode()) {
 
+		case KeyEvent.VK_R:
+			resetarCamera();
+			break;
 		case KeyEvent.VK_ESCAPE:
 			System.exit(1);
 			break;
-		case KeyEvent.VK_1:
-			xEye = 20.0f;
-			yEye = 20.0f;
-			zEye = 20.0f;
+		case KeyEvent.VK_LEFT:
+			xEye--;
 			break;
-		case KeyEvent.VK_2:
-			xEye = 0.0f;
-			yEye = 0.0f;
-			zEye = 20.0f;
+		case KeyEvent.VK_RIGHT:
+			xEye++;
 			break;
-		case KeyEvent.VK_3:
-			xEye = 0.0f;
-			yEye = 0.0f;
-			zEye = -20.0f;
+		case KeyEvent.VK_UP:
+			yEye++;
 			break;
-		case KeyEvent.VK_4:
-			xEye = 1.0f;
-			yEye = 0.0f;
-			zEye = 0.0f;
+		case KeyEvent.VK_DOWN:
+			yEye--;
+			break;
+		case KeyEvent.VK_HOME:
+			zEye--;
+			break;
+		case KeyEvent.VK_END:
+			zEye++;
 			break;
 
-		case KeyEvent.VK_M:
-			// eHMaterial = !eHMaterial;
-			ligarLuz();
+		case KeyEvent.VK_L:
+			ligarLuz(!luz);
 			break;
 		}
 
 		glDrawable.display();
 	}
+
+	private boolean luz = true;
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
