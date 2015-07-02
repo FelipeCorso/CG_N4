@@ -60,13 +60,6 @@ public class Pendulo {
 			esfera.setDefaultValueCabo2(x);
 			esferas.add(esfera);
 		}
-
-		// for (int i = 1; i <= qtdEsferas; i++) {
-		// Esfera esfera = new Esfera(gl, glut);
-		// esfera.setDefaultValueCabo1(Esfera.DEFAULT_VALUE);
-		// esfera.setDefaultValueCabo2(Esfera.DEFAULT_VALUE);
-		// esferas.add(esfera);
-		// }
 	}
 
 	private static final float deltaSuporte = 3f;

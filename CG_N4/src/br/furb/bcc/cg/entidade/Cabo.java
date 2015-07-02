@@ -6,10 +6,6 @@ public class Cabo extends ObjetoGrafico {
 
 	private GL gl;
 
-	/**
-	 * Liga os dois cabos
-	 */
-
 	private float xSuperior;
 	private float xInferior;
 
@@ -18,14 +14,6 @@ public class Cabo extends ObjetoGrafico {
 
 	private float zSuperior;
 	private float zInferior;
-
-	private float x;
-	private float y;
-	private float z;
-	private float yOrigem;
-	private float yDestino;
-	private float zOrigem;
-	private float zDestino;
 
 	public Cabo(GL gl) {
 		this.gl = gl;
@@ -40,71 +28,6 @@ public class Cabo extends ObjetoGrafico {
 			gl.glVertex3f(getXInferior(), getyInferior(), getzInferior());// Cria o ponto positivo
 		}
 		gl.glEnd();
-	}
-
-	/**
-	 * Recebe a coordenada x(+|-) y(+) e z(+) da origem do ponto o cabo.
-	 */
-	public void coordenadasCabo(float f, float g, float h) {
-		setX(f);
-		setY(g);
-		setZ(h);
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	public float getZ() {
-		return z;
-	}
-
-	public void setZ(float z) {
-		this.z = z;
-	}
-
-	public float getX() {
-		return x;
-	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public float getyOrigem() {
-		return yOrigem;
-	}
-
-	public void setyOrigem(float yOrigem) {
-		this.yOrigem = yOrigem;
-	}
-
-	public float getyDestino() {
-		return yDestino;
-	}
-
-	public void setyDestino(float yDestino) {
-		this.yDestino = yDestino;
-	}
-
-	public float getzOrigem() {
-		return zOrigem;
-	}
-
-	public void setzOrigem(float zOrigem) {
-		this.zOrigem = zOrigem;
-	}
-
-	public float getzDestino() {
-		return zDestino;
-	}
-
-	public void setzDestino(float zDestino) {
-		this.zDestino = zDestino;
 	}
 
 	public float getXSuperior() {
