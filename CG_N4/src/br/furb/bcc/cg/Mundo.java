@@ -1,7 +1,6 @@
 package br.furb.bcc.cg;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
@@ -9,13 +8,13 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
-import br.furb.bcc.cg.entidade.EstadoPendulo;
+import br.furb.bcc.cg.acao.MovimentaEsfera;
 import br.furb.bcc.cg.entidade.Pendulo;
-import br.furb.bcc.cg.perifericos.Perifericos;
+import br.furb.bcc.cg.perifericos.Teclado;
 
 import com.sun.opengl.util.GLUT;
 
-public class Mundo extends Perifericos implements GLEventListener {
+public class Mundo extends Teclado implements GLEventListener {
 
 	private GL gl;
 	private GLU glu;
@@ -23,8 +22,8 @@ public class Mundo extends Perifericos implements GLEventListener {
 	private GLAutoDrawable glDrawable;
 	private Pendulo pendulo;
 
-	private int antigoX;
-	private int antigoY;
+	private MovimentaEsfera movimentaEsfera = null;
+	private Thread threadMovimentaEsfera = null;
 
 	public static EstadoPendulo estadoPendulo = EstadoPendulo.PARADO;
 
@@ -45,12 +44,14 @@ public class Mundo extends Perifericos implements GLEventListener {
 		gl.glEnable(GL.GL_CULL_FACE);
 
 		pendulo = new Pendulo(gl, glut);
-
+		movimentaEsfera = new MovimentaEsfera(drawable, pendulo);
+		threadMovimentaEsfera = new Thread(movimentaEsfera);
+		threadMovimentaEsfera.start();
 	}
 
 	private void resetarCamera() {
 		xEye = 0.0f;
-		yEye = 10.0f;
+		yEye = 5.5f;
 		zEye = 30.0f;
 		xCenter = 0.0f;
 		yCenter = 0.0f;
@@ -92,20 +93,26 @@ public class Mundo extends Perifericos implements GLEventListener {
 		// eixo X - Red
 		gl.glColor3f(1.0f, 0.0f, 0.0f);
 		gl.glBegin(GL.GL_LINES);
-		gl.glVertex3f(0.0f, 0.0f, 0.0f);
-		gl.glVertex3f(10.0f, 0.0f, 0.0f);
+		{
+			gl.glVertex3f(0.0f, 0.0f, 0.0f);
+			gl.glVertex3f(10.0f, 0.0f, 0.0f);
+		}
 		gl.glEnd();
 		// eixo Y - Green
 		gl.glColor3f(0.0f, 1.0f, 0.0f);
 		gl.glBegin(GL.GL_LINES);
-		gl.glVertex3f(0.0f, 0.0f, 0.0f);
-		gl.glVertex3f(0.0f, 10.0f, 0.0f);
+		{
+			gl.glVertex3f(0.0f, 0.0f, 0.0f);
+			gl.glVertex3f(0.0f, 10.0f, 0.0f);
+		}
 		gl.glEnd();
 		// eixo Z - Blue
 		gl.glColor3f(0.0f, 0.0f, 1.0f);
 		gl.glBegin(GL.GL_LINES);
-		gl.glVertex3f(0.0f, 0.0f, 0.0f);
-		gl.glVertex3f(0.0f, 0.0f, 10.0f);
+		{
+			gl.glVertex3f(0.0f, 0.0f, 0.0f);
+			gl.glVertex3f(0.0f, 0.0f, 10.0f);
+		}
 		gl.glEnd();
 	}
 
@@ -116,7 +123,6 @@ public class Mundo extends Perifericos implements GLEventListener {
 	@Override
 	public void displayChanged(GLAutoDrawable arg0, boolean arg1, boolean arg2) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -141,8 +147,30 @@ public class Mundo extends Perifericos implements GLEventListener {
 		if ((arg0.getKeyCode() == KeyEvent.VK_R) && ((arg0.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 			glDrawable.display();
 		}
+
 		switch (arg0.getKeyCode()) {
 
+		case KeyEvent.VK_1:
+			threadMovimentaEsfera = new Thread(movimentaEsfera);
+			movimentaEsfera.setPause(false);
+			movimentaEsfera.setTipoMovimento(1);
+			threadMovimentaEsfera.start();
+			break;
+		case KeyEvent.VK_2:
+			threadMovimentaEsfera = new Thread(movimentaEsfera);
+			movimentaEsfera.setTipoMovimento(2);
+			movimentaEsfera.setPause(false);
+			threadMovimentaEsfera.start();
+			break;
+		case KeyEvent.VK_3:
+			threadMovimentaEsfera = new Thread(movimentaEsfera);
+			movimentaEsfera.setTipoMovimento(3);
+			movimentaEsfera.setPause(false);
+			threadMovimentaEsfera.start();
+			break;
+		case KeyEvent.VK_P:
+			movimentaEsfera.setPause(true);
+			break;
 		case KeyEvent.VK_R:
 			resetarCamera();
 			break;
@@ -156,10 +184,10 @@ public class Mundo extends Perifericos implements GLEventListener {
 			xEye++;
 			break;
 		case KeyEvent.VK_UP:
-			yEye++;
+			yEye--;
 			break;
 		case KeyEvent.VK_DOWN:
-			yEye--;
+			yEye++;
 			break;
 		case KeyEvent.VK_HOME:
 			zEye--;
@@ -167,7 +195,6 @@ public class Mundo extends Perifericos implements GLEventListener {
 		case KeyEvent.VK_END:
 			zEye++;
 			break;
-
 		case KeyEvent.VK_L:
 			ligarLuz(!luz);
 			break;
@@ -177,29 +204,5 @@ public class Mundo extends Perifericos implements GLEventListener {
 	}
 
 	private boolean luz = true;
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		int movtoX = e.getX() - antigoX;
-		int movtoY = e.getY() - antigoY;
-
-		// centroCirculoInterno.setX(centroCirculoInterno.getX() + movtoX);
-		// centroCirculoInterno.setY(centroCirculoInterno.getY() - movtoY);
-
-		antigoX = e.getX();
-		antigoY = e.getY();
-
-		glDrawable.display(); // redesenhar ...
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		antigoX = e.getX();
-		antigoY = e.getY();
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-	};
 
 }

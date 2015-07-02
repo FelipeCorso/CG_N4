@@ -1,6 +1,6 @@
 package br.furb.bcc.cg.entidade;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.media.opengl.GL;
@@ -16,7 +16,7 @@ public class Pendulo {
 	private Suporte lateral3;
 	private Suporte lateral4;
 	private Suporte inferior;
-	private List<Esfera> esferas = new ArrayList<Esfera>();
+	private List<Esfera> esferas = new LinkedList<Esfera>();
 	private GL gl;
 	private GLUT glut;
 
@@ -40,9 +40,33 @@ public class Pendulo {
 	}
 
 	private void criarEsferas(int qtdEsferas) {
-		for (int i = 1; i <= qtdEsferas; i++) {
-			esferas.add(new Esfera(gl, glut, i));
+
+		for (int i = qtdEsferas / 2 * -1; i <= qtdEsferas / 2; i++) {
+			Esfera esfera = new Esfera(gl, glut);
+
+			float x = (RAIO * i) * 4f;
+			float raio_x_2 = RAIO * 2;
+
+			esfera.setX(raio_x_2);
+			esfera.setY(raio_x_2);
+			esfera.setZ(raio_x_2);
+			esfera.settX(x);
+			esfera.settY(0);
+			esfera.settZ(deltaSuporte);
+
+			esfera.setDefaultValueX(x);
+
+			esfera.setDefaultValueCabo1(x);
+			esfera.setDefaultValueCabo2(x);
+			esferas.add(esfera);
 		}
+
+		// for (int i = 1; i <= qtdEsferas; i++) {
+		// Esfera esfera = new Esfera(gl, glut);
+		// esfera.setDefaultValueCabo1(Esfera.DEFAULT_VALUE);
+		// esfera.setDefaultValueCabo2(Esfera.DEFAULT_VALUE);
+		// esferas.add(esfera);
+		// }
 	}
 
 	private static final float deltaSuporte = 3f;
@@ -70,8 +94,14 @@ public class Pendulo {
 		inferior.desenha(compSuporteSup, 1.0f, (float) (deltaSuporte * 2) + 1f, 0, (alturaSuporte / -2) + 0.5f, 0f, corBlack);
 		int c = 0;
 		for (int i = qtdEsferas / 2 * -1; i <= qtdEsferas / 2; i++) {
-			esferas.get(c).desenha(RAIO * 2, RAIO * 2, RAIO * 2, (RAIO * i) * 4f, -1, deltaSuporte);
+
+			esferas.get(c).desenha();
+			// esfera.desenha(RAIO * 2, RAIO * 2, RAIO * 2, (RAIO * i) * 4f, 0, deltaSuporte);
 			c++;
 		}
+	}
+
+	public List<Esfera> getEsferas() {
+		return esferas;
 	}
 }

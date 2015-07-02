@@ -11,7 +11,7 @@ public class Main extends JFrame {
 
 	private static final long serialVersionUID = 1851620023081166356L;
 
-	private int janelaLargura = 800, janelaAltura = 800;
+	private int janelaLargura = 900, janelaAltura = 800;
 
 	public Main() {
 		super("CG-N4");
@@ -44,4 +44,9 @@ public class Main extends JFrame {
 		new Main().setVisible(true);
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		System.exit(1);
+	}
 }
