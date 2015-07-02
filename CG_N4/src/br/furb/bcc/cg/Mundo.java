@@ -25,8 +25,6 @@ public class Mundo extends Teclado implements GLEventListener {
 	private MovimentaEsfera movimentaEsfera = null;
 	private Thread threadMovimentaEsfera = null;
 
-	public static EstadoPendulo estadoPendulo = EstadoPendulo.PARADO;
-
 	@Override
 	public void init(GLAutoDrawable drawable) {
 		glDrawable = drawable;
@@ -140,9 +138,6 @@ public class Mundo extends Teclado implements GLEventListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		if (estadoPendulo == EstadoPendulo.MOVIMENTO) {
-			return;// Apenas deixa mudar os valores da visão da camera após iniciar o movimento do pêndulo
-		}
 
 		if ((arg0.getKeyCode() == KeyEvent.VK_R) && ((arg0.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 			glDrawable.display();

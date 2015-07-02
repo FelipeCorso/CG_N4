@@ -89,7 +89,6 @@ public class Pendulo {
 		for (int i = qtdEsferas / 2 * -1; i <= qtdEsferas / 2; i++) {
 
 			esferas.get(c).desenha();
-			// esfera.desenha(RAIO * 2, RAIO * 2, RAIO * 2, (RAIO * i) * 4f, 0, deltaSuporte);
 			c++;
 		}
 	}

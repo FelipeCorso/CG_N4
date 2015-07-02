@@ -4,7 +4,7 @@ import javax.media.opengl.GL;
 
 import com.sun.opengl.util.GLUT;
 
-public class Suporte extends ObjetoGrafico {
+public class Suporte {
 
 	private GL gl;
 	private GLUT glut;

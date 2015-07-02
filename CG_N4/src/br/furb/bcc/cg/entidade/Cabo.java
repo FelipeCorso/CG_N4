@@ -2,7 +2,7 @@ package br.furb.bcc.cg.entidade;
 
 import javax.media.opengl.GL;
 
-public class Cabo extends ObjetoGrafico {
+public class Cabo {
 
 	private GL gl;
 
